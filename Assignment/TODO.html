@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+<body>
+    <div class="container p-5 m-5">
+        <div class="card card-body p-4">
+            <h3 class="text-center">Add New Todo</h3>
+            <br />
+            <input type="text" placeholder="Enter Todo Title" id="title" class="form-control"  />
+            <input type="text" placeholder="Enter Todo Description" id="description" class="form-control" />
+            <br />
+
+          
+            <div class="text-center">
+                <button class="btn btn-success pr-5 pl-5" onclick="saveTodo()">
+                        Save Todo
+                    </button>
+                <br /><br />
+                 <div class="card-body">
+                <h4 id="todo_list_div" class="card-title"></h4>
+                <p id="todo_list_des" class="card-text"></p>
+              
+              </div>
+            </div>
+        </div>
+    </div>
+    <script>
+     
+    // var todos = [{
+    //     id: 1,
+    //     title: "First todo",
+    //     description: "First todo description"
+    // }, {
+    //     id: 2,
+    //     title: "Second todo",
+    //     description: "Second todo description"
+    // }];
+
+
+    var todos = [];
+    var Description=[];
+    var todoListDiv = document.getElementById("todo_list_div");
+    var todoListDes = document.getElementById("todo_list_des");
+
+    function saveTodo() {
+        var title = document.getElementById("title").value;
+        var description = document.getElementById("description").value;
+       
+        todos.unshift(title);
+        Description.unshift(description);
+        printTodoList();
+        printDescriptionList();
+        document.getElementById("title").value = "";
+        document.getElementById("description").value = "";
+    }
+
+    function printDescriptionList()
+    {
+        var todoDes = "";
+        Description.forEach(function(item, index) {
+            todoDes +=
+                "<div>" +
+                 item+
+                "</div>";
+                
+
+        });
+        todoListDes.innerHTML = todoDes;
+
+    }
+
+    function printTodoList() {
+       
+
+       
+        var total_todos = "";
+
+            todos.forEach(function(item, index) {
+            total_todos +=
+                item+" : "+
+                " <a  onclick='deleteTodo(" +
+                index+
+                ")' class='btn btn-primary'>Delete</a>";
+                console.log(todos);
+        });
+        todoListDiv.innerHTML = total_todos;
+    }
+
+    function deleteTodo(index) {
+        todos.splice(index, 1);
+        Description.splice(index, 1);
+        printDescriptionList()
+        printTodoList();
+    }
+    </script>
+</body>
+</html>

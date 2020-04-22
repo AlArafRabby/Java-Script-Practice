@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <form  id="book-form" class="form-group">
+        <h3 class="text-center font-weight-bold">Book List</h3>
+        <div class="col-md-12">
+            <label for="title" >Title</label>
+            <input type="text" id="title" class="form-control col-md-5" placeholder="Book Title">
+        </div><br>
+        <div class="col-md-12">
+            <label for="author">Author</label>
+            <input type="text" id="author" class="form-control  col-md-5"  placeholder="Book Author">
+        </div><br>
+        <div>
+            <input type="submit" value="submit" class="btn btn-primary alinment-left">
+        </div><br>
+    </form>
+    <table border="1" class="table table-dark">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+               
+            </tr>
+        </thead>
+        <tbody id="book-list">
+
+        </tbody>
+    </table>
+
+    <script>
+
+class Book{
+    constructor(Title,Author){
+        this.title=Title;
+        this.author=Author;
+    }
+
+    addBookToList(book){
+
+            const list = document.getElementById('book-list');
+            const row = document.createElement('tr');
+            row.innerHTML = ` 
+            <td>${book.title}</td><td>${book.author}</td><td><button type="button" class="btn btn-danger">Delete</button></td>` ;
+            list.appendChild(row);
+            return false;
+
+        }
+        clearFields(){
+        document.getElementById('title').value = '';
+        document.getElementById('author').value = '';
+        }
+        deleteBook(target) {
+            if(target.className === 'btn btn-danger'){
+                target.parentElement.parentElement.remove();
+
+            }
+        }
+}
+
+
+function addBookToList(book){
+
+        const list = document.getElementById('book-list');
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td><button href="" class="btn btn-success">X</button></td>`;
+        list.appendChild(row);
+        
+
+       
+};
+
+
+
+document.getElementById('book-form').addEventListener('submit',function(e){
+
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+
+    var book = new Book(title, author);
+
+    const ui = new Book();
+
+    if(title === '' || author === '') {
+
+        alert('please fill in all fields', 'error');
+    }
+    else{
+    
+   
+    ui.addBookToList(book);
+    //alert(JSON.stringify(book));
+    console.log(book.title);
+    
+  
+    e.preventDefault();
+       
+    }
+    
+  
+    
+});
+
+document.getElementById('book-list').addEventListener('click', function(e){
+        const ui = new Book();
+        ui.deleteBook(e.target);
+        e.preventDefault();
+});
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <div class="container p-5 m-5">
+        <div class="card card-body p-4">
+            <h3 class="text-center">Add New Todo</h3>
+            <br />
+            <input type="text" placeholder="Enter Todo Title" id="title" class="form-control" />
+            <br />
+            <div class="text-center">
+                <button class="btn btn-success pr-5 pl-5" onclick="saveTodo()">
+                        Save Todo
+                    </button>
+                <br /><br />
+                <div id="todo_list_div"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // var tasks = ["Test", "Test1", "New Task"];
+    // 0       1       2
+
+    var todos = [{
+        id: 1,
+        title: "First todo",
+        description: "First todo description"
+    }, {
+        id: 2,
+        title: "Second todo",
+        description: "Second todo description"
+    }];
+
+    // console.log(tasks);
+    // console.log(tasks.length);
+
+    // var task = "Another Task";
+    // tasks.push(task);
+    // tasks.unshift(task);
+
+    // tasks.pop();
+    // tasks.shift();
+
+    // console.log(tasks[tasks.length - 1]);
+    // tasks[1] = "Test2 Updated";
+    // console.log(tasks);
+
+    // console.log(todos);
+    // todos.pop();
+    // console.log(todos);
+
+    // var updatedTodo = {
+    //     id: 2,
+    //     title: "Second todo Updated",
+    //     description: "Second todo description Updated"
+    // };
+
+    // var todoNew = todos.slice(0);
+    // todoNew[1] = updatedTodo;
+    // console.log(todoNew);
+
+    // todoNew.splice(1, 1);
+    // console.log(todoNew);
+
+    var todos = [];
+    var todoListDiv = document.getElementById("todo_list_div");
+
+    function saveTodo() {
+        var title = document.getElementById("title").value;
+        todos.unshift(title);
+        printTodoList();
+        document.getElementById("title").value = "";
+    }
+
+    function printTodoList() {
+        var total_todos = "";
+
+        todos.forEach(function(item, index) {
+            total_todos +=
+                "<div>" +
+                item +
+                " <button onclick='deleteTodo(" +
+                index +
+                ")'>X</button></div>";
+        });
+        todoListDiv.innerHTML = total_todos;
+    }
+
+    function deleteTodo(index) {
+        todos.splice(index, 1);
+        printTodoList();
+    }
+    </script>
+</body>
+</html>
